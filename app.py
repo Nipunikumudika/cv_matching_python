@@ -54,7 +54,9 @@ def match_skills_api():
 
     match_result = match_skills(jd_skills, cv_skills)
     print(match_result)
-    return jsonify(match_result)
+    response = jsonify(match_result)
+    response.headers.add('Access-Control-Allow-Origin', 'https://nextstepcareers.sasandamanahara.com')
+    return response
 
 
 @app.route('/')
