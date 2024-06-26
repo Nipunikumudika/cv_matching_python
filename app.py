@@ -65,6 +65,18 @@ def match_skills_api():
 
 @app.route('/')
 def start():
+    try:
+        ruler = nlp.add_pipe("entity_ruler", after='parser')
+        ruler.from_disk("skill_patterns.jsonl")
+        print(f"Entity ruler loaded successfully from")
+
+        # Print the contents of skill_patterns.jsonl
+        with jsonlines.open("skill_patterns.jsonl") as reader:
+            print("Skill patterns in skill_patterns.jsonl:")
+            for obj in reader:
+                print(obj)
+    except Exception as e:
+        print(f"Error loading entity ruler: {e}")
     return "Start matching...."
 
 
