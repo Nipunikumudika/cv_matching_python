@@ -51,8 +51,13 @@ def match_skills_api():
     print(match_result)
     return jsonify(match_result)
 
+
+@app.route('/')
+def start():
+    return "Start matching..."
+
+
 if __name__ == '__main__':
-    print("Start matching...")
     # Load skill patterns
     add_newruler_to_pipeline("skill_patterns.jsonl")
     app.run(debug=True)  # You can change debug=True to debug=False in production
