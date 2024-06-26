@@ -13,8 +13,12 @@ cors = CORS(app, resource={
 nlp = spacy.load('en_core_web_sm')
 
 def add_newruler_to_pipeline(skill_pattern_path):
-    ruler = nlp.add_pipe("entity_ruler", after='parser')
-    ruler.from_disk(skill_pattern_path)
+    try:
+        ruler = nlp.add_pipe("entity_ruler", after='parser')
+        ruler.from_disk(skill_pattern_path)
+        print(f"Entity ruler loaded successfully from {skill_pattern_path}")
+    except Exception as e:
+        print(f"Error loading entity ruler from {skill_pattern_path}: {e}")
 
 def create_skill_set(doc):
     return set([ent.label_.upper()[6:] for ent in doc.ents if 'skill' in ent.label_.lower()])
