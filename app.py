@@ -4,7 +4,12 @@ import jsonlines
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app)
+cors = CORS(app, resource={
+    r"/*":{
+        "origins":"*"
+    }
+})
 nlp = spacy.load('en_core_web_sm')
 
 def add_newruler_to_pipeline(skill_pattern_path):
@@ -54,7 +59,7 @@ def match_skills_api():
 
 @app.route('/')
 def start():
-    return "Start matching..."
+    return "Start matching...."
 
 
 if __name__ == '__main__':
